@@ -8,7 +8,10 @@ CLASS_NAMES = ("good", "rotten")
 NUM_CLASSES = len(CLASS_NAMES)
 
 
-def create_model() -> nn.Module:
+def create_model(dropout: float = 0.2) -> nn.Module:
+    if not 0.0 <= dropout < 1.0:
+        raise ValueError("dropout must be between 0.0 and 1.0")
+
     model = efficientnet_b0(
         weights=EfficientNet_B0_Weights.DEFAULT,
     )

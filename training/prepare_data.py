@@ -14,7 +14,9 @@ BATCH_SIZE = 32
 NUM_WORKERS = 0
 
 
-def create_dataloaders() -> tuple[
+def create_dataloaders(
+    batch_size: int = BATCH_SIZE,
+) -> tuple[
     DataLoader,
     DataLoader,
     DataLoader,
@@ -35,19 +37,19 @@ def create_dataloaders() -> tuple[
 
     train_loader = DataLoader(
         train_dataset,
-        batch_size=BATCH_SIZE,
+        batch_size=batch_size,
         shuffle=True,
         num_workers=NUM_WORKERS,
     )
     validation_loader = DataLoader(
         validation_dataset,
-        batch_size=BATCH_SIZE,
+        batch_size=batch_size,
         shuffle=False,
         num_workers=NUM_WORKERS,
     )
     test_loader = DataLoader(
         test_dataset,
-        batch_size=BATCH_SIZE,
+        batch_size=batch_size,
         shuffle=False,
         num_workers=NUM_WORKERS,
     )

@@ -8,12 +8,14 @@ from torch.optim.lr_scheduler import CosineAnnealingLR
 from app.ml.model import CLASS_NAMES, create_model
 from training.prepare_data import create_dataloaders
 
+EPOCHS = 20
+BATCH_SIZE = 16
+LEARNING_RATE = 4.95368256349715e-4
+WEIGHT_DECAY = 2.091498132903561e-5
+DROPOUT = 0.048815293937911536
+ROTTEN_CLASS_WEIGHT = 1.7427653651669053
 
-EPOCHS = 10
-LEARNING_RATE = 1e-3
-WEIGHT_DECAY = 1e-4
-MODEL_PATH = Path("models/efficientnet_b0_best.pt")
-ROTTEN_CLASS_WEIGHT = 1.75
+MODEL_PATH = Path("models/efficientnet_b0_final.pt")
 
 
 def evaluate(
@@ -88,14 +90,16 @@ def main() -> None:
 
     print(f"Using device: {device}")
 
-    train_loader, validation_loader, _, class_names = create_dataloaders()
+    train_loader, validation_loader, _, class_names = create_dataloaders(
+        batch_size=BATCH_SIZE,
+    )
 
     if tuple(class_names) != CLASS_NAMES:
         raise RuntimeError(
             f"Unexpected class order: {class_names}. Expected: {CLASS_NAMES}."
         )
 
-    model = create_model().to(device)
+    model = create_model(dropout=DROPOUT).to(device)
     class_weights = torch.tensor(
         [1.0, ROTTEN_CLASS_WEIGHT],
         device=device,

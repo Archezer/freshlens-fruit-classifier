@@ -7,7 +7,7 @@ from app.ml.model import CLASS_NAMES, create_model
 from training.prepare_data import create_dataloaders
 
 
-MODEL_PATH = Path("models/efficientnet_b0_best.pt")
+MODEL_PATH = Path("models/efficientnet_b0_final.pt")
 
 
 def print_metrics(confusion_matrix: torch.Tensor) -> None:
