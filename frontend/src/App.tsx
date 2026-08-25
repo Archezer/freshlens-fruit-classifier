@@ -102,6 +102,15 @@ function App() {
             {isAnalyzing ? 'Analyzing…' : 'Analyze fruit'}
           </button>
         </div>
+        {isAnalyzing && (
+          <div className="loading-state" role="status" aria-live="polite">
+            <span className="loading-orbit" aria-hidden="true" />
+            <div>
+              <strong>Analyzing your fruit</strong>
+              <p>Connecting to the model. The server may take up to a minute to wake up.</p>
+            </div>
+          </div>
+        )}
         {error && <p className="message error-message" role="alert">{error}</p>}
       </section>
 
