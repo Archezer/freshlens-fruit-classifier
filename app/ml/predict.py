@@ -22,7 +22,7 @@ def load_model() -> torch.nn.Module:
         weights_only=True,
     )
 
-    model = create_model().to(DEVICE)
+    model = create_model(weights=None).to(DEVICE)
     model.load_state_dict(checkpoint['model_state_dict'])
     model.eval()
 
