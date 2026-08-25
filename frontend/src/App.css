@@ -1,0 +1,17 @@
+.app-shell { width: min(100% - 32px, 960px); margin: 0 auto; padding: 24px 0 48px; }
+.site-header { display: flex; align-items: center; justify-content: space-between; color: #617167; font-size: .9rem; }
+.brand { display: inline-flex; gap: 8px; align-items: center; color: #163c25; font-size: 1.15rem; font-weight: 800; text-decoration: none; }
+.brand-mark { display: grid; width: 28px; height: 28px; place-items: center; border-radius: 50%; color: #fff; background: #31834d; }
+.hero { max-width: 700px; margin: 92px auto 42px; text-align: center; }
+.eyebrow { margin: 0 0 12px; color: #31834d; font-size: .8rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+h1, h2, p { margin-top: 0; }
+h1 { margin-bottom: 16px; color: #163c25; font-size: clamp(2.4rem, 7vw, 4.5rem); line-height: 1; letter-spacing: -.065em; }
+.hero-description { max-width: 540px; margin: 0 auto; color: #617167; font-size: 1.1rem; line-height: 1.6; }
+.analysis-card { padding: 10px; border: 1px solid #d8e2d7; border-radius: 28px; background: #fff; box-shadow: 0 18px 55px rgb(25 56 34 / 8%); }
+.upload-placeholder { display: flex; min-height: 300px; flex-direction: column; align-items: center; justify-content: center; border: 2px dashed #b5c9b5; border-radius: 20px; background: #f9fcf7; text-align: center; }
+.upload-icon { display: grid; width: 48px; height: 48px; margin-bottom: 14px; place-items: center; border-radius: 16px; color: #fff; font-size: 1.7rem; background: #31834d; }
+.upload-placeholder h2 { margin-bottom: 8px; color: #163c25; }
+.upload-placeholder p, .disclaimer { color: #617167; }
+.upload-placeholder button { margin-top: 12px; padding: 11px 18px; border: 0; border-radius: 10px; color: #fff; font-weight: 700; cursor: pointer; background: #31834d; }
+.disclaimer { margin: 20px 0 0; text-align: center; font-size: .82rem; }
+@media (max-width: 600px) { .header-status { display: none; } .hero { margin-top: 64px; } }

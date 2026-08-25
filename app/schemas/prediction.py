@@ -12,4 +12,4 @@ class PredictionResponse(BaseModel):
     predicted_class: FruitQuality
     confidence: float = Field(ge=0.0, le=1.0)
     probabilities: dict[FruitQuality, float]
-    heatmap_url: str | None = None
+    heatmap_data_url: str
