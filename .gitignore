@@ -93,7 +93,7 @@ __pycache__/
 
 data/
 models/*
-!models/efficientnet_b0_final.pt
 *.pt
 *.pth
+!models/efficientnet_b0_final.pt
 reports/
