@@ -13,6 +13,10 @@ DEVICE = torch.device(
     "cuda" if torch.cuda.is_available() else "cpu"
 )
 
+if DEVICE.type == 'cpu':
+    torch.set_num_threads(1)
+    torch.set_num_interop_threads(1)
+
 
 @lru_cache
 def load_model() -> torch.nn.Module:

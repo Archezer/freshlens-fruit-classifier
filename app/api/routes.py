@@ -9,6 +9,7 @@ from app.ml.predict import predict_image
 from app.schemas.prediction import FruitQuality, PredictionResponse
 
 router = APIRouter()
+MAXIMUM_IMAGE_PIXELS = 12_000_000
 
 
 @router.get('/health')
@@ -36,7 +37,13 @@ async def predict(file: UploadFile = File(...)) -> PredictionResponse:
         )
 
     try:
-        image = Image.open(BytesIO(file_bytes)).convert('RGB')
+        with Image.open(BytesIO(file_bytes)) as source_image:
+            if source_image.width * source_image.height > MAXIMUM_IMAGE_PIXELS:
+                raise HTTPException(
+                    status_code=status.HTTP_413_CONTENT_TOO_LARGE,
+                    detail='Image resolution must not exceed 12 megapixels',
+                )
+            image = source_image.convert('RGB')
     except (UnidentifiedImageError, OSError) as error:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
