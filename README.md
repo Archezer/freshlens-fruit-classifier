@@ -3,6 +3,10 @@
 FreshLens is an educational computer vision project that estimates the quality
 of a fruit from a photo.
 
+**Live application:** https://archezer.github.io/freshlens-fruit-classifier/
+
+**API:** https://freshlens-api.onrender.com/health
+
 The first version will classify apples into two classes:
 
 - `good` — visually normal apple with no significant visible spoilage;
@@ -182,13 +186,13 @@ The deployment checkpoint `models/efficientnet_b0_final.pt` is versioned in
 Git so that a Render Blueprint build can reproduce the service. Other model
 artifacts and all dataset files remain ignored.
 
-For Render, set `CORS_ALLOWED_ORIGINS` to the GitHub Pages origin, without the
-repository path, for example `https://archezer.github.io`.
+The backend is deployed on Render at
+`https://freshlens-api.onrender.com`. Its CORS policy allows the GitHub Pages
+origin `https://archezer.github.io`.
 
-For GitHub Pages, set the repository Actions variable `VITE_API_BASE_URL` to
-the deployed Render API URL, for example `https://freshlens-api.onrender.com`.
-Then enable **Settings → Pages → Build and deployment → GitHub Actions**. The
-workflow in `.github/workflows/deploy-frontend.yml` publishes each push to
+The frontend is deployed on GitHub Pages at
+`https://archezer.github.io/freshlens-fruit-classifier/`. The workflow in
+`.github/workflows/deploy-frontend.yml` publishes each eligible push to
 `master`.
 
 ## Quality and reproducibility principles
@@ -208,6 +212,4 @@ workflow in `.github/workflows/deploy-frontend.yml` publishes each push to
 - FastAPI `POST /predict` validates uploads and returns prediction plus Grad-CAM.
 - React frontend supports upload, local preview, loading state, error display,
   prediction, and Grad-CAM result.
-- Dockerfile and GitHub Pages workflow are ready.
-- External deployment still requires a Render service URL and a model-artifact
-  delivery decision.
+- Docker backend is deployed on Render; GitHub Pages frontend is live.
