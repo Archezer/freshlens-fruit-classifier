@@ -146,23 +146,50 @@ freshlens-fruit-classifier/
 ├── tests/               # Unit and API tests
 ├── frontend/            # React application
 ├── Dockerfile
-├── compose.yaml
 ├── pyproject.toml
 └── README.md
 ```
 
-## Recommended first implementation increment
+## Local run
 
-The first code increment should create the backend foundation:
+Start the backend from the repository root:
 
-1. add FastAPI and a development server dependency;
-2. create `app/main.py`;
-3. implement `GET /health`;
-4. add one test for the health response;
-5. document the local run command.
+```powershell
+uv run uvicorn app.main:app --reload
+```
 
-This proves that the project environment and API boundary work before any ML
-training begins.
+Start the frontend in a second terminal:
+
+```powershell
+cd frontend
+npm run dev -- --host 0.0.0.0
+```
+
+The frontend uses `http://127.0.0.1:8000` by default. To point it at another
+backend, create `frontend/.env` from `frontend/.env.example` and set
+`VITE_API_BASE_URL`.
+
+## Deployment
+
+The backend Docker image includes `models/efficientnet_b0_final.pt` and starts
+Uvicorn on Render's `PORT`. Build it locally with:
+
+```powershell
+docker build -t freshlens-api .
+```
+
+The deployment checkpoint `models/efficientnet_b0_final.pt` is versioned in
+Git so that a Render Blueprint build can reproduce the service. Other model
+artifacts and all dataset files remain ignored.
+
+For Render, set `CORS_ALLOWED_ORIGINS` to the GitHub Pages origin, without the
+repository path, for example `https://archezer.github.io`.
+
+For GitHub Pages, set the repository Actions variable `VITE_API_BASE_URL` to
+the deployed Render API URL, for example `https://freshlens-api.onrender.com`.
+Then enable **Settings → Pages → Build and deployment → GitHub Actions**. The
+workflow in `.github/workflows/deploy-frontend.yml` publishes each push to
+`master`.
 
 ## Quality and reproducibility principles
 
@@ -176,6 +203,11 @@ training begins.
 
 ## Status
 
-Dataset prepared: 1,795 original, validated apple images. No trained model,
-production inference endpoint, Grad-CAM implementation, frontend, or Docker
-deployment exists yet.
+- Dataset prepared: 1,795 original apple images.
+- EfficientNet-B0 checkpoint trained with CUDA locally.
+- FastAPI `POST /predict` validates uploads and returns prediction plus Grad-CAM.
+- React frontend supports upload, local preview, loading state, error display,
+  prediction, and Grad-CAM result.
+- Dockerfile and GitHub Pages workflow are ready.
+- External deployment still requires a Render service URL and a model-artifact
+  delivery decision.

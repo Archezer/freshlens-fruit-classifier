@@ -1,0 +1,10 @@
+.git
+.venv
+.uv-cache
+__pycache__
+*.py[cod]
+data
+frontend
+reports
+tests
+training

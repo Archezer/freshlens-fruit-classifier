@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: freshlens-api
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    envVars:
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false

@@ -92,6 +92,8 @@ __pycache__/
 .pytest_cache/
 
 data/
-models/
+models/*
+!models/efficientnet_b0_final.pt
 *.pt
 *.pth
+reports/

@@ -20,7 +20,7 @@ class Settings:
     app_version: str = '0.1.0'
     debug: bool = True
     cors_allowed_origins: list[str] = field(
-    default_factory=read_cors_origins
-)
+        default_factory=read_cors_origins
+    )
 
 settings = Settings()
